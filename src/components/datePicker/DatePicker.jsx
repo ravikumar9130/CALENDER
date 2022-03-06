@@ -5,7 +5,7 @@ import { DatePicker } from 'antd';
 
 import { useDispatch } from "react-redux";
 
-import { CHANGE_MONTH ,WEEK_DAY} from '../../actions/types';
+import { CHANGE_MONTH, WEEK_DAY } from '../../actions/types';
 
 
 function range(start, end) {
@@ -17,7 +17,7 @@ function range(start, end) {
 }
 
 function disabledDate(current) {
-   
+
   return current && current < moment().endOf('day');
 }
 
@@ -47,7 +47,7 @@ export const DayDatePicker = () => {
       <span className='icon-btn' onClick={changeLeft}><CaretLeftOutlined /></span>
 
       <DatePicker disabledDate={disabledDate}
-                    disabledTime={disabledDateTime} value={day} id='datePicker' onChange={(value) => { setDay(value) }} format="D MMMM YYYY" />
+        disabledTime={disabledDateTime} value={day} id='datePicker' onChange={(value) => { setDay(value) }} format="D MMMM YYYY" />
       <span className='icon-btn' onClick={changeRight}><CaretRightFilled /></span>
     </div>
   )
@@ -56,67 +56,67 @@ export const DayDatePicker = () => {
 }
 
 moment.updateLocale('en', {
-  months : [
-      "January", "February", "March", "April", "May", "June", "July",
-      "August", "September", "October", "November", "December"
+  months: [
+    "January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"
   ]
 });
 export const WeekDatePicker = () => {
   const dispatch = useDispatch()
-const [week, setWeek] = useState(moment())
-  
-const start_date = week.startOf('week').format("D MMM");
-const end_date = week.endOf('week').format("D MMM")  ;
+  const [week, setWeek] = useState(moment())
+
+  const start_date = week.startOf('week').format("D MMM");
+  const end_date = week.endOf('week').format("D MMM");
 
 
 
 
 
   const changeRight = () => {
-    let demo = moment(week,"DD/MM/YYYY").add(1, "week").format('DD-MM-YY')
-    
-   
+    let demo = moment(week, "DD/MM/YYYY").add(1, "week").format('DD-MM-YY')
+
+
     let arr = []
-    for(let i = 1; i <= 7 ; i++ ){
-  
-      let weekDay =  moment(week).add(i, "day").format("D")
+    for (let i = 1; i <= 7; i++) {
+
+      let weekDay = moment(week).add(i, "day").format("D")
       arr.push(weekDay)
-      
+
     }
     dispatch({
       type: WEEK_DAY,
-      payload: {WeekData: arr },
+      payload: { WeekData: arr },
     });
     setWeek(moment(demo, "DD/MM/YYYY"));
   }
- 
+
   const changeLeft = () => {
 
-    let demo = moment(week,"DD/MM/YYYY").subtract(1, "week").format('DD-MM-YY')
-   
+    let demo = moment(week, "DD/MM/YYYY").subtract(1, "week").format('DD-MM-YY')
+
     let arr = []
-    for(let i = 0; i <= 6 ; i++ ){
-  
-      let weekDay = moment(week,"DD/MM/YYYY").subtract(1, "week").startOf('week').add(i, "day").format("D")
+    for (let i = 0; i <= 6; i++) {
+
+      let weekDay = moment(week, "DD/MM/YYYY").subtract(1, "week").startOf('week').add(i, "day").format("D")
       arr.push(weekDay)
-      
+
     }
     dispatch({
       type: WEEK_DAY,
-      payload: {WeekData: arr },
+      payload: { WeekData: arr },
     });
     setWeek(moment(demo, "DD/MM/YYYY"));
 
   }
 
-let date_val = start_date +" - "+ end_date
-console.log(moment(date_val))
+  let date_val = start_date + " - " + end_date
+  console.log(moment(date_val))
   return (
     <div className='cus-cal'>
       <span className='icon-btn' onClick={changeLeft}><CaretLeftOutlined /></span>
-     
-      <DatePicker disabledDate={disabledDate} value= {week} format="D MMMM"
-                    disabledTime={disabledDateTime} id='datePicker' picker="week"  placeholder= {date_val}   />
+
+      <DatePicker disabledDate={disabledDate} value={week} format="D MMMM"
+        disabledTime={disabledDateTime} id='datePicker' picker="week" placeholder={date_val} />
 
       <span className='icon-btn' onClick={changeRight}><CaretRightFilled /></span>
     </div>
@@ -135,7 +135,7 @@ export const MonthDatePicker = () => {
     let demo = moment(month, "DD/MM/YYYY").add(1, "month")
     dispatch({
       type: CHANGE_MONTH,
-      payload: {MonthData: demo },
+      payload: { MonthData: demo },
     });
     setMonth(moment(demo, "DD/MM/YYYY"));
 
@@ -145,7 +145,7 @@ export const MonthDatePicker = () => {
     let demo = moment(month, "DD/MM/YYYY").subtract(1, "month")
     dispatch({
       type: CHANGE_MONTH,
-      payload: {MonthData: demo },
+      payload: { MonthData: demo },
     });
     setMonth(moment(demo, "DD/MM/YYYY"));
 
@@ -155,7 +155,7 @@ export const MonthDatePicker = () => {
       <span className='icon-btn' onClick={changeLeft}><CaretLeftOutlined /></span>
 
       <DatePicker disabledDate={disabledDate}
-                    disabledTime={disabledDateTime} value={month} id='datePicker' onChange={(value) => { setMonth(value) }} format=" MMMM YYYY" />
+        disabledTime={disabledDateTime} value={month} id='datePicker' onChange={(value) => { setMonth(value) }} format=" MMMM YYYY" />
       <span className='icon-btn' onClick={changeRight}><CaretRightFilled /></span>
     </div>
   )

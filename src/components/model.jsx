@@ -1,18 +1,19 @@
-import React,{useState} from 'react';
-import { Modal, Button, Row, Col, Form, Input, Select, Switch ,InputNumber,Radio} from 'antd';
-import 'antd/dist/antd.css';
-
+import { useState } from 'react';
+//moment.js
 import moment from 'moment';
-import { DatePicker, Space } from 'antd';
 import 'moment/locale/zh-cn';
-
+//redux
 import { useDispatch } from "react-redux";
-
 import { ADD_VISIT } from '../actions/types';
+//import ant design
+import { Modal, Button, Row, Col, Form, Input, Select, Switch, InputNumber, Radio } from 'antd';
+import 'antd/dist/antd.css';
+import { DatePicker, Space } from 'antd';
 
-const Model = ({isVisible,setIsVisible}) => {
+
+const Model = ({ isVisible, setIsVisible }) => {
   const dispatch = useDispatch();
-  const [repeat,setRepeat] = useState('Daily')
+  const [repeat, setRepeat] = useState('Daily')
   const [show, setShow] = useState(false)
   const [data, setData] = useState({
     patient: '',
@@ -24,46 +25,33 @@ const Model = ({isVisible,setIsVisible}) => {
     location: '',
     link: '',
     notes: '',
-    
-
   });
 
+  //radio ant design
   const { Option } = Select;
-
-
- 
 
   const showModal = () => {
     setIsVisible(true);
   };
 
   const handleOk = () => {
-
     setIsVisible(false);
   };
 
-
-
   const handleChange = (value, name) => {
     setData(data => ({ ...data, [name]: value }))
-
-
   }
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     dispatch({
       type: ADD_VISIT,
-      payload: {CalenderData: data },
+      payload: { CalenderData: data },
     });
     setIsVisible(false)
-
   }
 
-
-
+  //disabel past time and date
   function range(start, end) {
     const result = [];
     for (let i = start; i < end; i++) {
@@ -73,7 +61,6 @@ const Model = ({isVisible,setIsVisible}) => {
   }
 
   function disabledDate(current) {
-   
     return current && current < moment().endOf('day');
   }
 
@@ -81,9 +68,11 @@ const Model = ({isVisible,setIsVisible}) => {
     return {
       disabledHours: () => range(0, 24).splice(4, 20),
       disabledMinutes: () => range(30, 60),
-
     };
   }
+
+
+  //model style
   const divStyle = {
     overflowY: 'scroll',
     width: '496px',
@@ -95,10 +84,9 @@ const Model = ({isVisible,setIsVisible}) => {
   return (
     <>
       <Button type="primary" icon={"+"} onClick={showModal}>
-       New Visit
+        New Visit
       </Button>
       <Form
-
         labelCol={{
           span: 8,
         }}
@@ -108,9 +96,7 @@ const Model = ({isVisible,setIsVisible}) => {
         initialValues={{
           remember: true,
         }}
-
         autoComplete="off"
-
       >
         <Modal
           footer={[
@@ -120,45 +106,28 @@ const Model = ({isVisible,setIsVisible}) => {
             <Button key="back" onClick={handleOk} >
               Return
             </Button>,
-
-
           ]}
           style={{ top: 50 }} visible={isVisible} onOk={handleOk}>
-
           <div style={divStyle}>
             <Row className='pt' >
-
-
-
               <Col span={12}>
-
                 <label className='lab' > Select Patient <span className='col'>*</span></label>
-
                 <Input
                   value={data.patient}
                   style={{ width: 195 }}
                   onChange={e => handleChange(e.target.value, 'patient')} placeholder='Select Patient..'
                 />
-
-
               </Col>
-
               <Col span={12}>
                 <label className='lab' > Episode <span className='col'>*</span></label>
                 <Input value={data.episode} style={{ width: 195 }} onChange={e => handleChange(e.target.value, 'episode')} placeholder='Episode..' />
-
               </Col>
             </Row>
 
-
             <Row className='pt'>
-
-
               <Col span={12}>
-
                 <label className='lab' >  From Time <span className='col'>*</span></label>
                 <Space direction="vertical" size={12}>
-
                   <DatePicker
                     style={{ width: 195 }}
                     onChange={value => handleChange(value, 'date')}
@@ -170,11 +139,8 @@ const Model = ({isVisible,setIsVisible}) => {
                   />
                 </Space>
               </Col>
-
               <Col span={12}>
-
                 <label className='lab' >   Duration <span className='col'>*</span></label>
-
                 <Select style={{ width: 195 }} defaultValue="Select .." style={{ width: 200 }} onChange={value => handleChange(value, 'duration')}>
 
                   <Option value="15">15 minutes</Option>
@@ -182,77 +148,53 @@ const Model = ({isVisible,setIsVisible}) => {
                   <Option value="45">45 minutes</Option>
                   <Option value="60">1 hour</Option>
                   <Option value="75">75 minutes</Option>
-
                   <Option value="90">90 minutes</Option>
-
                   <Option value="105">105 minutes</Option>
-
                   <Option value="120">2 hour</Option>
 
                 </Select>
-
               </Col>
-
             </Row>
 
             <Row className='pt'>
               <Col span={12}>
-
                 <label className='lab' >   Visit Type <span className='col'>*</span></label>
-
                 <Select style={{ width: 195 }} defaultValue="Select .." style={{ width: 200 }} onChange={value => handleChange(value, 'vistiType')}>
-
                   <Option value="Check-up">Check Up</Option>
                   <Option value="Emergency">Emergency</Option>
                   <Option value="Follow-up">Follow Up</Option>
                   <Option value="Routine">Routine</Option>
                   <Option value="Walk-in">Walk in</Option>
-
                   <Option value="Other">Other</Option>
-
                 </Select>
 
               </Col>
               <Col span={12}>
-
                 <label className='lab' >   Status <span className='col'>*</span></label>
-
                 <Select style={{ width: 195 }} defaultValue="Select .." style={{ width: 200 }} onChange={value => handleChange(value, 'status')}>
-
                   <Option value="Pre">Pre-Operation</Option>
                   <Option value="Post">Post Operation</Option>
                   <Option value="Trauma">Trauma</Option>
                   <Option value="Corporate">Corporate</Option>
                   <Option value="Wellness">Wellness</Option>
-
-
                 </Select>
               </Col>
             </Row>
 
-
             <Row className='pt'>
               <Col span={12}>
-
                 <label className='lab' >   Location <span className='col'>*</span></label>
-
                 <Select style={{ width: 195 }} defaultValue="Select .." style={{ width: 200 }} onChange={value => handleChange(value, 'location')}>
-
                   <Option value="Clinic">Clinic</Option>
                   <Option value="Home">Home</Option>
                   <Option value="Visit">Visit</Option>
                   <Option value="Vedio-confrence">Vedio Confrence</Option>
-
-
                 </Select>
-
               </Col>
               <Col span={12}>
-
                 <label className='lab' >  Add Video Confrences</label>
                 <Input style={{ width: 195 }} onChange={e => handleChange(e.target.value, 'link')}
                   placeholder='https://drive.in/..' />
-
               </Col>
             </Row>
             <Row className='pt'>
@@ -270,12 +212,11 @@ const Model = ({isVisible,setIsVisible}) => {
 
               </Col>
             </Row>
+            {/* repeat  */}
             {show && <Row>
               <br />
               <p> Recurrence Rule</p>
               <Col span={24}>
-
-
                 Repeat
                 <br />
                 <center>
@@ -286,99 +227,89 @@ const Model = ({isVisible,setIsVisible}) => {
                     <Option value="Weekly">Weekly</Option>
                     <Option value="Monthly">Monthly</Option>
                     <Option value="Yearly">Yearly</Option>
-
-
                   </Select>
                 </center>
-                <br/>
+                <br />
               </Col>
               <Col span={24}>
-              Repeat Every
-              <br />
-              { repeat === "Hourly" && ( <div className='repeatFun'>
-              <InputNumber min={1} max={50} defaultValue={1} onChange={(value)=>console.log(value)} />   <span>hour(s)</span>
-              
-              <p>Repeat On</p>
-              <br />
-              <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} />
-              <p>End Repeat</p>
-              <br/>
-              <Radio value={1}>Never</Radio> <br /> <br />
-          <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY"/> </Radio> <br/> <br/>
-          <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} /> <span>occurence(s)</span> </Radio>
-              </div>
-              )
-              }
-              { repeat === "Daily" && ( <div className='repeatFun'>
-              <InputNumber min={1} max={50} defaultValue={1} onChange={(value)=>console.log(value)} />   <span>day(s)</span>
-              
-              <p>Repeat On</p>
-              <br />
-              <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} />
-              <p>End Repeat</p>
-              <br/>
-              <Radio value={1}>Never</Radio> <br /> <br />
-          <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY"/> </Radio> <br/> <br/>
-          <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} /> <span>occurence(s)</span> </Radio>
-              </div>
-              )
-              }
-              { repeat === "Weekly" && ( <div className='repeatFun'>
-              <InputNumber min={1} max={50} defaultValue={1} onChange={(value)=>console.log(value)} />   <span>week(s)</span>
-              
-              <p>Repeat On</p>
-              <br />
-              <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} />
-              <p>End Repeat</p>
-              <br/>
-              <Radio value={1}>Never</Radio> <br /> <br />
-          <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY"/> </Radio> <br/> <br/>
-          <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} /> <span>occurence(s)</span> </Radio>
-              </div>
-              )
-              }
-              { repeat === "Monthly" && ( <div className='repeatFun'>
-              <InputNumber min={1} max={50} defaultValue={1} onChange={(value)=>console.log(value)} />   <span>month(s)</span>
-              
-              <p>Repeat On</p>
-              <br />
-              <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} />
-              <p>End Repeat</p>
-              <br/>
-              <Radio value={1}>Never</Radio> <br /> <br />
-          <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY"/> </Radio> <br/> <br/>
-          <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} /> <span>occurence(s)</span> </Radio>
-              </div>
-              )
-              }
-              { repeat === "Yearly" && ( <div className='repeatFun'>
-              <InputNumber min={1} max={50} defaultValue={1} onChange={(value)=>console.log(value)} />   <span>year(s)</span>
-              
-              <p>Repeat On</p>
-              <br />
-              <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} />
-              <p>End Repeat</p>
-              <br/>
-              <Radio value={1}>Never</Radio> <br /> <br />
-          <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY"/> </Radio> <br/> <br/>
-          <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value)=>console.log(value)} /> <span>occurence(s)</span> </Radio>
-              </div>
-              )
-              }
+                Repeat Every
+                <br />
+                {repeat === "Hourly" && (<div className='repeatFun'>
+                  <InputNumber min={1} max={50} defaultValue={1} onChange={(value) => console.log(value)} />   <span>hour(s)</span>
+
+                  <p>Repeat On</p>
+                  <br />
+                  <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} />
+                  <p>End Repeat</p>
+                  <br />
+                  <Radio value={1}>Never</Radio> <br /> <br />
+                  <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY" /> </Radio> <br /> <br />
+                  <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} /> <span>occurence(s)</span> </Radio>
+                </div>
+                )
+                }
+                {repeat === "Daily" && (<div className='repeatFun'>
+                  <InputNumber min={1} max={50} defaultValue={1} onChange={(value) => console.log(value)} />   <span>day(s)</span>
+
+                  <p>Repeat On</p>
+                  <br />
+                  <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} />
+                  <p>End Repeat</p>
+                  <br />
+                  <Radio value={1}>Never</Radio> <br /> <br />
+                  <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY" /> </Radio> <br /> <br />
+                  <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} /> <span>occurence(s)</span> </Radio>
+                </div>
+                )
+                }
+                {repeat === "Weekly" && (<div className='repeatFun'>
+                  <InputNumber min={1} max={50} defaultValue={1} onChange={(value) => console.log(value)} />   <span>week(s)</span>
+
+                  <p>Repeat On</p>
+                  <br />
+                  <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} />
+                  <p>End Repeat</p>
+                  <br />
+                  <Radio value={1}>Never</Radio> <br /> <br />
+                  <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY" /> </Radio> <br /> <br />
+                  <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} /> <span>occurence(s)</span> </Radio>
+                </div>
+                )
+                }
+                {repeat === "Monthly" && (<div className='repeatFun'>
+                  <InputNumber min={1} max={50} defaultValue={1} onChange={(value) => console.log(value)} />   <span>month(s)</span>
+
+                  <p>Repeat On</p>
+                  <br />
+                  <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} />
+                  <p>End Repeat</p>
+                  <br />
+                  <Radio value={1}>Never</Radio> <br /> <br />
+                  <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY" /> </Radio> <br /> <br />
+                  <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} /> <span>occurence(s)</span> </Radio>
+                </div>
+                )
+                }
+                {repeat === "Yearly" && (<div className='repeatFun'>
+                  <InputNumber min={1} max={50} defaultValue={1} onChange={(value) => console.log(value)} />   <span>year(s)</span>
+
+                  <p>Repeat On</p>
+                  <br />
+                  <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} />
+                  <p>End Repeat</p>
+                  <br />
+                  <Radio value={1}>Never</Radio> <br /> <br />
+                  <Radio value={2}>On <DatePicker defaultValue={moment()} format="d-MM-YYYY" /> </Radio> <br /> <br />
+                  <Radio value={3}>after   <InputNumber min={1} max={31} defaultValue={1} onChange={(value) => console.log(value)} /> <span>occurence(s)</span> </Radio>
+                </div>
+                )
+                }
               </Col>
 
             </Row>
-            
-            
             }
 
           </div>
-
-
-
-
-
-
         </Modal>
       </Form>
     </>
