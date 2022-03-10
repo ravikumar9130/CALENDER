@@ -12,23 +12,23 @@ export default function Day({ setIsVisible, day}) {
     let dayTag  = useSelector(state => state.calender.data);
     
     const time = [
-        "07:00 Am",
-        "08:00 Am",
-        "09:00 Am",
-        "10:00 Am",
-        "11:00 Am",
-        "12:00 Pm",
-        "01:00 Pm",
-        "02:00 Pm",
-        "03:00 Pm",
-        "04:00 Pm",
-        "05:00 Pm",
-        "06:00 Pm",
-        "07:00 Pm",
-        "08:00 Pm",
-        "09:00 Pm",
-        "10:00 Pm",
-        "11:00 Pm"
+        "07:00 am",
+        "08:00 am",
+        "09:00 am",
+        "10:00 am",
+        "11:00 am",
+        "12:00 pm",
+        "01:00 pm",
+        "02:00 pm",
+        "03:00 pm",
+        "04:00 pm",
+        "05:00 pm",
+        "06:00 pm",
+        "07:00 pm",
+        "08:00 pm",
+        "09:00 pm",
+        "10:00 pm",
+        "11:00 pm"
     ]
 
     let m = moment(day, 'ddd MMM D YYYY HH:mm a');

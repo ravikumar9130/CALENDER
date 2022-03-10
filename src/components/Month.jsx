@@ -29,17 +29,17 @@ let MonthTag  = useSelector(state => state.calender.data);
 
   let exactDate = moment(MonthTag.date).format('D') 
   let exactMonth = moment(MonthTag.date).format('M') 
-    console.log(exactDate);
-
+  
+console.log(MonthTag.patient)
   function getListData(value) {
     
     let listData;
-   console.log(value.month())
+  
     switch (value.date()) {
       
       case  parseInt(exactDate):
         listData = [
-          {  content:  },
+          {  content: MonthTag.patient },
         ];
         break;
     
@@ -52,8 +52,8 @@ let MonthTag  = useSelector(state => state.calender.data);
   function dateCellRender(value) {
     const listData = getListData(value);
     return (
-      <ul className="events">
-        {listData.map(item => (
+      <ul >
+        { listData.map(item => (
           <li key={item.content}>
              <span className='month_data'>
              {item.content} </span>
