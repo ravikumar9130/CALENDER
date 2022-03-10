@@ -29,8 +29,8 @@ function disabledDateTime() {
   };
 }
 
-export const DayDatePicker = () => {
-  const [day, setDay] = useState(moment())
+export const DayDatePicker = ({day,setDay}) => {
+  
   const changeRight = () => {
     let demo = moment(day, "DD/MM/YYYY").add(1, "day").format('DD-MM-YY')
     setDay(moment(demo, "DD/MM/YYYY"));
@@ -110,7 +110,7 @@ export const WeekDatePicker = () => {
   }
 
   let date_val = start_date + " - " + end_date
-  console.log(moment(date_val))
+
   return (
     <div className='cus-cal'>
       <span className='icon-btn' onClick={changeLeft}><CaretLeftOutlined /></span>

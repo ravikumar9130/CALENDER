@@ -1,6 +1,6 @@
 import {
     
-    CHANGE_MONTH
+    CHANGE_MONTH,MONTH_VAL
   } from "../actions/types";
   import moment from 'moment';
   
@@ -12,6 +12,11 @@ import {
         return {
           ...state,
           data: payload.MonthData,
+        };
+       case MONTH_VAL:
+        return {
+          ...state,
+          data: payload.MonthVal,
         };
    
       default:

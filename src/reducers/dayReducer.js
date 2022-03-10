@@ -1,18 +1,19 @@
 import {
-    ADD_VISIT,
+   DAY_DATE,
   } from "../actions/types";
-  import moment from 'moment'
-  
-  const initialState = {data:{date:moment()}}
+import moment from 'moment';
+
+
+  const initialState ={} ;
   export default function (state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
       
       
-      case ADD_VISIT:
+      case DAY_DATE:
         return {
           ...state,
-          data: payload.CalenderData,
+          data: payload.dayData,
         };
   
    

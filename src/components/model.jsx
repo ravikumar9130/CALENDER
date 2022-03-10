@@ -3,22 +3,25 @@ import { useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 //redux
-import { useDispatch } from "react-redux";
-import { ADD_VISIT } from '../actions/types';
+import { useDispatch, useSelector } from "react-redux";
+import { ADD_VISIT} from '../actions/types';
 //import ant design
 import { Modal, Button, Row, Col, Form, Input, Select, Switch, InputNumber, Radio } from 'antd';
 import 'antd/dist/antd.css';
 import { DatePicker, Space } from 'antd';
 
 
+
+
 const Model = ({ isVisible, setIsVisible }) => {
+  const dayValue = useSelector(state =>state.dayReducer.data)
   const dispatch = useDispatch();
   const [repeat, setRepeat] = useState('Daily')
   const [show, setShow] = useState(false)
   const [data, setData] = useState({
     patient: '',
     episode: '',
-    date: '',
+    date: moment(dayValue),
     duration: '',
     vistiType: '',
     status: '',
@@ -74,11 +77,11 @@ const Model = ({ isVisible, setIsVisible }) => {
 
   //model style
   const divStyle = {
-    overflowY: 'scroll',
-    width: '496px',
-    visible: 'hidden',
-    height: '400px',
-    position: 'relative'
+  //  overflowY: 'scroll',
+  //   width: '496px',
+  //  visible: 'hidden',
+  //  height: '500px',
+  //   position: 'relative'
   };
 
   return (
@@ -107,7 +110,7 @@ const Model = ({ isVisible, setIsVisible }) => {
               Return
             </Button>,
           ]}
-          style={{ top: 50 }} visible={isVisible} onOk={handleOk}>
+          style={{ top: 30 }} visible={isVisible} onOk={handleOk}>
           <div style={divStyle}>
             <Row className='pt' >
               <Col span={12}>
@@ -131,12 +134,12 @@ const Model = ({ isVisible, setIsVisible }) => {
                   <DatePicker
                     style={{ width: 195 }}
                     onChange={value => handleChange(value, 'date')}
-                    format="MM/DD/YYYY [,] HH:mm A"
+                    format="MM/DD/YYYY [,] h:mm A"
                     disabledDate={disabledDate}
                     disabledTime={disabledDateTime}
-                    value={moment()}
+                    value={moment(dayValue)}
                     showTime={{ defaultValue: moment('00:00', 'HH:mm') }}
-                  />
+                  /> 
                 </Space>
               </Col>
               <Col span={12}>
